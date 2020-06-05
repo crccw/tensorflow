@@ -342,11 +342,17 @@ Status TensorHandle::CreatePackedHandle(std::vector<TensorHandle*>&& handles,
     }
   }
 
-  CompositeDevice* composite_device = nullptr;
-  TF_RETURN_IF_ERROR(
-      ctx->FindOrCreateCompositeDevice(devices, &composite_device));
+  Device* device;
+  if (devices.size() == 1) {
+    device = absl::get<Device*>(handles.at(0)->DeviceOrHostCPU(*ctx));
+  } else {
+    CompositeDevice* composite_device = nullptr;
+    TF_RETURN_IF_ERROR(
+        ctx->FindOrCreateCompositeDevice(devices, &composite_device));
+    device = composite_device;
+  }
   *packed_handle =
-      new TensorHandle(std::move(handles), composite_device, dtype, shape, ctx);
+      new TensorHandle(std::move(handles), device, dtype, shape, ctx);
   (*packed_handle)->SetResourceHandleInfo(std::move(resource_handle_info));
   return Status::OK();
 }

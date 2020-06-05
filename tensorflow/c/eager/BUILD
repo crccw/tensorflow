@@ -369,7 +369,6 @@ tf_cuda_cc_test(
     args = ["--heap_check=local"],
     extra_copts = tfe_xla_copts(),
     tags = [
-        "no_windows",
         "noasan",  # leaks gRPC server instances
     ],
     deps = [
@@ -401,10 +400,7 @@ tf_cuda_cc_test(
     # TODO(b/136478427): Figure out how to correctly shut the server down
     args = ["--heap_check=local"],
     extra_copts = tfe_xla_copts(),
-    tags = [
-        "no_windows",
-        "noasan",  # leaks gRPC server instances
-    ],
+    tags = ["noasan"],  # leaks gRPC server instances
     deps = [
         ":c_api",
         ":c_api_experimental",
@@ -434,10 +430,7 @@ tf_cuda_cc_test(
     # TODO(b/136478427): Figure out how to correctly shut the server down
     args = ["--heap_check=local"],
     extra_copts = tfe_xla_copts(),
-    tags = [
-        "no_windows",
-        "noasan",  # leaks gRPC server instances
-    ],
+    tags = ["noasan"],  # leaks gRPC server instances
     deps = [
         ":c_api",
         ":c_api_experimental",

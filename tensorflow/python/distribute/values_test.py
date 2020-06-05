@@ -19,7 +19,6 @@ from __future__ import division
 from __future__ import print_function
 
 import collections
-import copy
 import itertools
 import os
 
@@ -336,20 +335,6 @@ class DistributedDelegateTest(test.TestCase):
     self.assertEqual(7, abs(v))
     with self.assertRaises(TypeError):
       _ = v[2]
-
-  @test_util.run_in_graph_and_eager_modes
-  def testCopy(self):
-
-    class Foo(object):
-
-      def __init__(self, x):
-        self.x = x
-
-    v = values.DistributedDelegate((Foo(7), Foo(8)))
-    v_shallow_copy = copy.copy(v)
-    self.assertEqual(v.x, v_shallow_copy.x)
-    v_deep_copy = copy.deepcopy(v)
-    self.assertEqual(v.x, v_deep_copy.x)
 
 
 def _device_str(d):

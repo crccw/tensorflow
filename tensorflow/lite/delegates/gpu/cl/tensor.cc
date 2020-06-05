@@ -148,7 +148,6 @@ GPUResourcesWithValue Tensor::GetGPUResources(AccessType access_type) const {
   GPUResourcesWithValue resources;
   if (descriptor_.HasAxis(Axis::WIDTH)) {
     resources.ints.push_back({"width", Width()});
-    resources.ints.push_back({"width_batched", Width() * Batch()});
   }
   if (descriptor_.HasAxis(Axis::HEIGHT)) {
     resources.ints.push_back({"height", Height()});

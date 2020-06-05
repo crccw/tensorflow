@@ -17,7 +17,6 @@ limitations under the License.
 
 #include <cstddef>
 #include <cstdint>
-#include <new>
 
 #include "tensorflow/lite/core/api/error_reporter.h"
 #include "tensorflow/lite/micro/memory_helpers.h"

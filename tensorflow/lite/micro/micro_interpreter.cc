@@ -91,12 +91,6 @@ MicroInterpreter::MicroInterpreter(const Model* model,
     initialization_status_ = kTfLiteError;
     return;
   }
-  if (allocator_.Init() != kTfLiteOk) {
-    TF_LITE_REPORT_ERROR(error_reporter,
-                         "Failed to initialize the allocator.\n");
-    initialization_status_ = kTfLiteError;
-    return;
-  }
   subgraph_ = (*subgraphs)[0];
 
   context_.impl_ = static_cast<void*>(&context_helper_);
@@ -172,7 +166,7 @@ void MicroInterpreter::CorrectTensorDataEndianness(T* data, int32_t size) {
 }
 
 TfLiteStatus MicroInterpreter::AllocateTensors() {
-  TF_LITE_ENSURE_OK(&context_, allocator_.PrepareFromFlatbuffer(
+  TF_LITE_ENSURE_OK(&context_, allocator_.InitializeFromFlatbuffer(
                                    op_resolver_, &node_and_registrations_));
 
   // Only allow AllocatePersistentBuffer in Init stage.

@@ -13,10 +13,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
-#ifndef TENSORFLOW_LITE_DELEGATES_GPU_METAL_KERNELS_ADD_H_
-#define TENSORFLOW_LITE_DELEGATES_GPU_METAL_KERNELS_ADD_H_
-
-#include <vector>
+#ifndef TENSORFLOW_LITE_DELEGATES_GPU_METAL_KERNELS_MUL_H_
+#define TENSORFLOW_LITE_DELEGATES_GPU_METAL_KERNELS_MUL_H_
 
 #include "tensorflow/lite/delegates/gpu/common/model.h"
 #include "tensorflow/lite/delegates/gpu/common/operations.h"
@@ -27,15 +25,13 @@ namespace tflite {
 namespace gpu {
 namespace metal {
 
-// Add with broadcast.
-std::vector<ComputeTaskDescriptorPtr> Add(int id,
-                                          const std::vector<ValueId> input_ids,
-                                          ValueId output_id,
-                                          const AddAttributes& attr,
-                                          const RuntimeOptions& options);
-
+// Multiply operation, supports scalar and vector broadcast.
+std::vector<ComputeTaskDescriptorPtr> Multiply(int id, ValueId input_id,
+                                               ValueId output_id,
+                                               const MultiplyAttributes& attr,
+                                               const RuntimeOptions& options);
 }  // namespace metal
 }  // namespace gpu
 }  // namespace tflite
 
-#endif  // TENSORFLOW_LITE_DELEGATES_GPU_METAL_KERNELS_ADD_H_
+#endif  // TENSORFLOW_LITE_DELEGATES_GPU_METAL_KERNELS_MUL_H_
